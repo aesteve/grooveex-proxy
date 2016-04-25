@@ -42,8 +42,9 @@ class ProxyHandler {
       remoteResp >>> resp.&end
     }
     Pump toRemote = req | proxyReq // client -> proxy -> server
-    toRemote.start()
+    toRemote++
     req >>> proxyReq.&end
+    proxyReq++
   }
 
   private String normalize(HttpServerRequest req) {
