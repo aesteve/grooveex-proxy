@@ -12,7 +12,11 @@ repositories {
 }
 
 dependencies {
+
   compile "com.github.aesteve:grooveex:$grooveexVersion"
+
+  testCompile 'junit:junit:4.12'
+
 }
 
 task wrapper(type: Wrapper) {
