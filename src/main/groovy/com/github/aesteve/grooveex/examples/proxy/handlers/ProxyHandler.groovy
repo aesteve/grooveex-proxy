@@ -37,10 +37,9 @@ class ProxyHandler {
       Pump fromRemote = proxyResp | resp
       fromRemote++ // server -> proxy -> client
     }
-    req >>> proxyReq.&end
     Pump toRemote = req | proxyReq // client -> proxy -> server
     toRemote++
-    proxyReq++
+    req >>> proxyReq.&end
   }
 
   private HttpClientRequest proxy(HttpServerRequest req) {
