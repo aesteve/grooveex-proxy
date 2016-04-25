@@ -30,10 +30,10 @@ class ProxyHandler {
     HttpServerRequest req = context.request
     HttpServerResponse resp = context.response
     resp.chunked = true
-    HttpClientRequest proxyReq = client.request req.method, normalize(req)
+    HttpClientRequest proxyReq = client.request(req.method, normalize(req))
     proxyReq.chunked = true
     proxyReq.headers = req.headers - CONTENT_LENGTH - HOST // since request is pumped, do not send body-length
-    proxyReq.headers['X-Forwarded-For'] = req.remoteAddress()
+    proxyReq.headers['X-Forwarded-For'] = req.remoteAddress
     proxyReq.headers['X-Forwarded-Host'] = req.headers[HOST]
     proxyReq >> { HttpClientResponse remoteResp ->
       resp.headers = remoteResp.headers - CONTENT_LENGTH // since response is chunked, do not send body-length
