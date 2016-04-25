@@ -9,7 +9,6 @@ import io.vertx.groovy.ext.web.Router
 import io.vertx.lang.groovy.GroovyVerticle
 import org.codehaus.groovy.control.ConfigurationException
 
-@TypeChecked
 @CompileStatic
 class ProxyVerticle extends GroovyVerticle {
 
@@ -28,7 +27,9 @@ class ProxyVerticle extends GroovyVerticle {
     Router router = vertx.router
     router.route(forwardPath) >> proxy.&forward
     server.requestHandler router.&accept
-    server.listen future.completeOrFail()
+    server.listen {
+      future.complete()
+    }
   }
 
   void checkConfig() throws ConfigurationException {
